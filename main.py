@@ -1,4 +1,7 @@
+import json
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 import mysql.connector  # Librería MySQL
 
@@ -9,10 +12,10 @@ load_dotenv()
 def conexion_basedatos():
     """Establece y devuelve la conexión a la base de datos."""
     config = {
-        'user': os.getenv('root'),
-        'password': os.getenv('0000'),
-        'host': os.getenv('localhost'),
-        'database': os.getenv('food_diet_database'),
+        'user': "root",
+        'password': os.getenv('mysql_password'),
+        'host': "localhost",
+        'database': 'food_db',
         'raise_on_warnings': True
     }
     return mysql.connector.connect(**config)
@@ -64,10 +67,10 @@ def sujetos_basedatos():
     alergias = cursor.fetchall()
 
     # Procesar y estructurar la información
-    sujetos_dict = {}
+    subjects_dict = {}
     for sujeto in sujetos:
         sujeto_id = sujeto["sujeto_id"]
-        sujetos_dict["sujeto_id"] = {
+        subjects_dict[sujeto_id] = {
             "calorias": sujeto["calorias"],
             "edad": sujeto["edad"],
             "gustos": [],
@@ -77,17 +80,30 @@ def sujetos_basedatos():
 
     # Asignar gustos a cada sujeto
     for gusto in gustos:
-        sujetos_dict[gusto["sujeto_id"]]["gustos"].append(gusto["grupo"])
+        subjects_dict[gusto["sujeto_id"]]["gustos"].append(gusto["grupo"])
 
     # Asignar disgustos a cada sujeto
     for disgusto in disgustos:
-        sujetos_dict[disgusto["sujeto_id"]]["disgustos"].append(disgusto["grupo"])
+        subjects_dict[disgusto["sujeto_id"]]["disgustos"].append(disgusto["grupo"])
 
     # Asignar alergias a cada sujeto
     for alergia in alergias:
-        sujetos_dict[alergia["sujeto_id"]]["alergias"].append(alergia["grupo"])
+        subjects_dict[alergia["sujeto_id"]]["alergias"].append(alergia["grupo"])
 
     cursor.close()
     cnx.close()
 
-    return list(sujetos_dict.values())
+    return list(subjects_dict.values())
+
+if __name__ == "__main__":
+    comida = comida_basedatos()
+    sujetos = sujetos_basedatos()
+
+    print("Comida:", comida[:3])  # Imprime las primeras 3 filas de comida
+    print("Sujetos:", sujetos[:3])  # Imprime las primeras 3 filas de sujetos
+
+    with open(Path("data/food.json"), "w") as file:
+        json.dump(comida, file)
+
+    with open(Path("data/subjects.json"), "w") as file:
+        json.dump(sujetos, file)
