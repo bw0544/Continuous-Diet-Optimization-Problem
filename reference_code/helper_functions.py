@@ -1,7 +1,12 @@
-from database import comida_basedatos
+# note: this code takes the .json file as input data and does not depend on the mySQL connection
+
+import json
+
 from constants import GruposComida, DIAS_SEMANA, COMIDAS
 
-comida_bd = comida_basedatos()
+with open("../data_json/food.json", "r") as file:
+    comida_bd = json.load(file)
+
 
 def calculo_macronutrientes(proteinas, carbohidratos, grasas):
     """Calcula el porcentaje de calorias provenientes de cada macronutriente."""
