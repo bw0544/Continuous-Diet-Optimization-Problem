@@ -102,8 +102,8 @@ if __name__ == "__main__":
     print("Comida:", comida[:3])  # Imprime las primeras 3 filas de comida
     print("Sujetos:", sujetos[:3])  # Imprime las primeras 3 filas de sujetos
 
-    with open(Path("data_json/food.json"), "w") as file:
+    with open(Path("../data_json/food.json"), "w") as file:
         json.dump(comida, file)
 
-    with open(Path("data_json/subjects.json"), "w") as file:
+    with open(Path("../data_json/subjects.json"), "w") as file:
         json.dump(sujetos, file)
