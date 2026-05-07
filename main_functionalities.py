@@ -18,7 +18,7 @@ class MainFunctionalities:
 
     @staticmethod
     def create_random_individual() -> Individual:
-
+        food_db = MainFunctionalities.get_food_db()
         foods = []
         amounts = []
 
@@ -32,12 +32,15 @@ class MainFunctionalities:
             daily_food = []
             daily_amount = []
             for category in categories:
-                foods_from_category = filter_food(PopulationManager.FOOD_DB, category, 30)
+                foods_from_category = filter_food(food_db, category, 30)
                 daily_food.append(random.choice(foods_from_category))  # age should be once defined
                 daily_amount.append(random.uniform(0.1, 5))
 
             foods.extend(daily_food)
             amounts.extend(daily_amount)
+
+        if len(foods) != 77:
+            raise ValueError(f"There should be 77 foods chosen for the week plan, instead got: {len(foods)}.")
 
         return Individual(foods, amounts)
 
@@ -57,3 +60,8 @@ class MainFunctionalities:
             "carbohydrates": result_es["carbohidratos"]
         }
         return result_en
+
+if __name__ == '__main__':
+    random_individual = MainFunctionalities.create_random_individual()
+    random_food_info = MainFunctionalities.get_food_info(random_individual.foods[0])
+    pass

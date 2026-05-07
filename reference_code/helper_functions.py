@@ -4,7 +4,7 @@ import json
 
 from reference_code.constants import GruposComida, DIAS_SEMANA, COMIDAS
 
-with open("../data_json/food.json", "r") as file:
+with open("data_json/food.json", "r") as file:
     comida_bd = json.load(file)
 
 
