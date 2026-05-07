@@ -1,34 +1,81 @@
+import random
+from types import GeneratorType
+
+from data_models.individual import Individual
+from main_functionalities import MainFunctionalities
+
+
 class GeneticAlgorithm:
 
-    def run(self, population_size=100, iterations=500):
+    @staticmethod
+    def create_initial_population(population_size) -> list[Individual]:
+        return [MainFunctionalities.create_random_individual() for _ in range(population_size)]
+
+    @staticmethod
+    def choose_parent_tournament(population: list[Individual], tournament_size) -> Individual:
+        """
+        :param population: population of all individuals
+        :param tournament_size: parameter for tournament selection, indicating how many individuals to randomly sample from the
+         population and choose the best one as parent (value 3 is well-tested in the literature)
+        :return: the selected individual
+        """
+        individuals_for_tournament = [random.choice(population) for _ in range(tournament_size)]
+        best_individual = min(individuals_for_tournament, key=lambda individual: individual.fitness)
+        return best_individual
+
+
+    @staticmethod
+    def uniform_crossover(parent1, parent2):
+        """
+        Applying crossover, creating an offspring from both parents.
+        :param parent1: first parent
+        :param parent2: second parent
+        :return: new offpring
+        """
+        foods1, amounts1 = parent1.foods, parent1.amounts
+        foods2, amounts2 = parent2.foods, parent2.amounts
+
+        new_foods = []
+        new_amounts = []
+
+        for i in range(len(foods1)):
+            if random.random() < 0.5:
+                new_foods.append(foods1[i])
+                new_amounts.append(amounts1[i])
+            else:
+                new_foods.append(foods2[i])
+                new_amounts.append(amounts2[i])
+
+        return Individual(new_foods, new_amounts)
+
+    @staticmethod
+    def create_offsprings_from_parents(population: list[Individual], offspring_num, tournament_size) -> list[Individual]:
+        offsprings = []
+        for _ in range(offspring_num):
+            parents = [GeneticAlgorithm.choose_parent_tournament(population=population, tournament_size=tournament_size) for _ in range(2)]
+            offspring = GeneticAlgorithm.uniform_crossover(*parents)
+            #TODO: add mutation here
+            offsprings.append(offspring)
+
+        return offsprings
+
+
+    @staticmethod
+    def run(population_size=100, iterations=500, tournament_size=3):
 
         history = []
+        population = GeneticAlgorithm.create_initial_population(population_size)
 
-        # TODO: create initial population of 100
-        population = self.create_initial_population(population_size)
-
-        for i in range(iterations):
+        for _ in range(iterations):
+            offsprings = GeneticAlgorithm.create_offsprings_from_parents(population,
+                                                             offspring_num=population_size,
+                                                             tournament_size=tournament_size)
             pass
 
-        #TODO: choose parents: tournament selection with k=3
-        # # Select parent 1
-        # contestants_1 = random_sample(population, K=3)
-        # parent_1 = min(contestants_1, key=fitness)   # minimizing fitness
-        # .
-        # # Select parent 2 (ensure different from parent 1)
-        # contestants_2 = random_sample(population, K=3)
-        # parent_2 = min(contestants_2, key=fitness)
-        # .
-        # # Apply crossover
-        # offspring = crossover(parent_1, parent_2)
-        # .
-        # # Apply mutation
-        # offspring = mutate(offspring)
 
 
-
-        #TODO:  apply crossover -> uniform/multi-slot crossover (Meal-slot level crossover vs. food-slot level crossover)
-        #       Structural level — uniform crossover at the meal slot level (35 coin flips). Decides which parent each slot comes from
+        #NOTE:  apply crossover -> uniform/multi-slot crossover (Meal-slot level crossover vs. food-slot level crossover)
+        #       Structural level — uniform crossover at the meal slot level. Decides which parent each slot comes from
         #       Amount level — apply BLX-α to the amounts of the selected slots rather than just copying them directly
 
         #TODO:  apply mutation ->
@@ -97,3 +144,6 @@ class GeneticAlgorithm:
         # - whether local search fired this generation and by how much it improved
 
         pass
+
+if __name__ == '__main__':
+    GeneticAlgorithm.run()
