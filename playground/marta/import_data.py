@@ -18,7 +18,7 @@ cursor.execute("CREATE DATABASE IF NOT EXISTS food_db")
 cursor.execute("USE food_db")
 
 # Read and execute SQL file
-with open("food_database_dump.sql", "r", encoding="utf-8") as f:
+with open("../../food_database_dump.sql", "r", encoding="utf-8") as f:
     sql_script = f.read()
 
 for statement in sql_script.split(";"):
