@@ -4,6 +4,11 @@
 - `data_models`: contains data models used in the project (e.g. Individual)
 - `playground`: all other random scripts/python files that are not necessary for the project, rather tryout scripts etc.
 
+## Important implementation details
+- Population consists of `Individual` objects, which are defined in `data_models/individual.py`. Here we are trying to optimize the food_type chosen and the amount.
+That's why we have 2 vectors for each individual: food_type and amount.
+- We have to define and hard-code the subject (age and calories intake goal for the day). In our case we set it to: **age=30, calories_goal=2567.85** (chosen from the `subjects.json` file).
+- Our goal is to optimize the calories intake, nothing else!
 
 ## [Optional] MySQL database - setup and download data
 Add the .env file in the root of this repository (Python/.env), with the following content:
