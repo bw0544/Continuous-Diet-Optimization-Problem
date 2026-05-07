@@ -67,7 +67,7 @@ def filter_food(food_database: list[dict], food_category: FoodCategory, age: int
     return filtrar_comida(food_database, food_category.value, age)
 
 
-def translate_solution(solution: list[int], food_database: list[dict]) -> tuple[dict, dict]:
+def translate_sol(solution: list[int], food_db: list[dict]) -> tuple[dict, dict]:
     """
     Translate a numerical solution into a structured meal plan.
 
@@ -75,7 +75,7 @@ def translate_solution(solution: list[int], food_database: list[dict]) -> tuple[
     builds a weekly menu, and calculates daily nutritional values.
 
     :param solution: List of food indices representing the solution.
-    :param comida_bd: List of available food items.
+    :param food_db: List of available food items.
 
     :returns:
         A tuple containing:
@@ -87,8 +87,8 @@ def translate_solution(solution: list[int], food_database: list[dict]) -> tuple[
 
     :example:
 
-    >>> solucion = [0, 2, 1]
-    >>> comida_bd = [
+    >>> solution = [0, 2, 1]
+    >>> food_db = [
     ...     {
     ...         "nombre": "Apple",
     ...         "grupo": "Fruits",
@@ -115,7 +115,7 @@ def translate_solution(solution: list[int], food_database: list[dict]) -> tuple[
     ...     }
     ... ]
     >>>
-    >>> menu, datos_dia = traducir_solucion(solucion, comida_bd)
+    >>> menu, daily_nutritional_data = traducir_solucion(solution, food_db)
     >>>
     >>> menu
     {
@@ -133,7 +133,7 @@ def translate_solution(solution: list[int], food_database: list[dict]) -> tuple[
         ...
     }
     >>>
-    >>> datos_dia
+    >>> daily_nutritional_data
     {
         "Monday": {
             "calorias": 347,
@@ -147,35 +147,6 @@ def translate_solution(solution: list[int], food_database: list[dict]) -> tuple[
         ...
     }
     """
-
-    result_spanish, daily_nutritional_data = traducir_solucion(solution, food_database)
-
-
-    weekdays_english = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    weekdays_spanish =  ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
-    weekdays_translations = dict(zip(weekdays_spanish, weekdays_english))
-
-    meals_english = ['Breakfast', 'Morning Snack', 'Lunch', 'Afternoon Snack', 'Dinner']
-    meals_spanish = ['Desayuno', 'Tentempie', 'Almuerzo', 'Merienda', 'Cena']
-    meals_translations = dict(zip(meals_spanish, meals_english))
-
-    # translating the weekly menu
-
-    for weekday_es, weekday_en in weekdays_translations.items():
-        result_spanish[weekday_en] = result_spanish[weekday_es].pop()
-
-    for weekday_es, day_menu_es in result_spanish.items():
-        for meal_es, meal_en in meals_translations.items():
-            day_menu_es[meal_en] = day_menu_es[meal_es].pop()
-
-    # translating the daily nutritional data
-
-
-
-    return result_spanish
-
-def translate_sol(solution: list[int], food_db: list[dict]) -> tuple[dict, dict]:
-
 
     WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     #MEALS = ['Breakfast', 'Morning Snack', 'Lunch', 'Afternoon Snack', 'Dinner']
