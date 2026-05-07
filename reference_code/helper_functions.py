@@ -27,6 +27,7 @@ def calculo_macronutrientes(proteinas, carbohidratos, grasas):
 def filtrar_comida(comida_bd, tipo, edad):
     """Filtra los alimentos segun el tipo de comida y la edad del usuario."""
 
+
     match tipo:
         case "almuerzo_cena":
             return [
