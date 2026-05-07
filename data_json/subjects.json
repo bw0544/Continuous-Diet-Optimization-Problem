@@ -1,1 +1,121 @@
-[{"calorias": 2877.19, "edad": 17, "gustos": ["AC", "AD", "MCA"], "disgustos": ["BR", "J", "JA", "JC", "JK", "JM", "JR"], "alergias": ["S", "SE", "SEA", "SEC", "SN", "SNA", "SNC"]}, {"calorias": 2567.85, "edad": 30, "gustos": ["BAE", "FC", "FE"], "disgustos": ["C", "CA", "CD", "CDE", "CDH"], "alergias": ["A", "AB", "AC", "AD", "AE", "AF", "AG", "AI", "AK", "AM", "AN", "AO", "AP", "AS", "AT"]}, {"calorias": 3102.84, "edad": 40, "gustos": ["DAP", "MAC", "SEA"], "disgustos": ["BH", "BJS", "MIG"], "alergias": ["PAC", "PCA", "SNC"]}, {"calorias": 1710.5, "edad": 55, "gustos": ["AF", "BNH"], "disgustos": ["MB", "QA", "QC"], "alergias": ["F", "FA", "FC", "FE"]}, {"calorias": 1401.3, "edad": 72, "gustos": ["AM", "JC"], "disgustos": ["MG", "MR"], "alergias": ["BA", "BAB", "BAE", "BAH", "BAK", "BAR", "BH"]}]
+[
+  {
+    "calorias": 2877.19,
+    "edad": 17,
+    "gustos": [
+      "AC",
+      "AD",
+      "MCA"
+    ],
+    "disgustos": [
+      "BR",
+      "J",
+      "JA",
+      "JC",
+      "JK",
+      "JM",
+      "JR"
+    ],
+    "alergias": [
+      "S",
+      "SE",
+      "SEA",
+      "SEC",
+      "SN",
+      "SNA",
+      "SNC"
+    ]
+  },
+  {
+    "calorias": 2567.85,
+    "edad": 30,
+    "gustos": [
+      "BAE",
+      "FC",
+      "FE"
+    ],
+    "disgustos": [
+      "C",
+      "CA",
+      "CD",
+      "CDE",
+      "CDH"
+    ],
+    "alergias": [
+      "A",
+      "AB",
+      "AC",
+      "AD",
+      "AE",
+      "AF",
+      "AG",
+      "AI",
+      "AK",
+      "AM",
+      "AN",
+      "AO",
+      "AP",
+      "AS",
+      "AT"
+    ]
+  },
+  {
+    "calorias": 3102.84,
+    "edad": 40,
+    "gustos": [
+      "DAP",
+      "MAC",
+      "SEA"
+    ],
+    "disgustos": [
+      "BH",
+      "BJS",
+      "MIG"
+    ],
+    "alergias": [
+      "PAC",
+      "PCA",
+      "SNC"
+    ]
+  },
+  {
+    "calorias": 1710.5,
+    "edad": 55,
+    "gustos": [
+      "AF",
+      "BNH"
+    ],
+    "disgustos": [
+      "MB",
+      "QA",
+      "QC"
+    ],
+    "alergias": [
+      "F",
+      "FA",
+      "FC",
+      "FE"
+    ]
+  },
+  {
+    "calorias": 1401.3,
+    "edad": 72,
+    "gustos": [
+      "AM",
+      "JC"
+    ],
+    "disgustos": [
+      "MG",
+      "MR"
+    ],
+    "alergias": [
+      "BA",
+      "BAB",
+      "BAE",
+      "BAH",
+      "BAK",
+      "BAR",
+      "BH"
+    ]
+  }
+]
