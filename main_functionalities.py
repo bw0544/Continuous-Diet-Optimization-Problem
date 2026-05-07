@@ -1,6 +1,7 @@
 import json
 import random
 
+from data_models.database import FOOD_DATABASE
 from data_models.individual import Individual
 from reference_code.constants import DIAS_SEMANA
 from wrapper_helper_functions import FoodCategory, filter_food
@@ -11,14 +12,9 @@ class MainFunctionalities:
     This class includes all the important functions for operations shared
     between GeneticAlgorithm and Swarm Optimization.
     """
-    @staticmethod
-    def get_food_db():
-        with open("data_json/food.json", "r") as file:
-            return json.load(file)
 
     @staticmethod
     def create_random_individual() -> Individual:
-        food_db = MainFunctionalities.get_food_db()
         foods = []
         amounts = []
 
@@ -32,7 +28,7 @@ class MainFunctionalities:
             daily_food = []
             daily_amount = []
             for category in categories:
-                foods_from_category = filter_food(food_db, category, 30)
+                foods_from_category = filter_food(FOOD_DATABASE, category, 30)
                 daily_food.append(random.choice(foods_from_category))  # age should be once defined
                 daily_amount.append(random.uniform(0.1, 5))
 
@@ -50,7 +46,7 @@ class MainFunctionalities:
 
     @staticmethod
     def get_food_info(index: int) -> dict:
-        result_es = MainFunctionalities.get_food_db()[index]
+        result_es = FOOD_DATABASE[index]
         result_en = {
             "name": result_es["nombre"],
             "group": result_es["grupo"],
