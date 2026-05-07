@@ -4,10 +4,6 @@ import json
 
 from reference_code.constants import GruposComida, DIAS_SEMANA, COMIDAS
 
-with open("data_json/food.json", "r") as file:
-    comida_bd = json.load(file)
-
-
 def calculo_macronutrientes(proteinas, carbohidratos, grasas):
     """Calcula el porcentaje de calorias provenientes de cada macronutriente."""
 
