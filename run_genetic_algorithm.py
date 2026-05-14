@@ -34,7 +34,7 @@ def print_meal_plan(best_individual) -> None:
     print(f"Total fitness (calorie deviation over week): {best_individual.fitness:.2f} kcal")
     print("=" * 60)
 
-    menu, daily_data = translate_sol(best_individual.foods, FOOD_DATABASE)
+    menu, daily_data = translate_sol(best_individual.foods, FOOD_DATABASE, best_individual.amounts)
 
     for day, meals in menu.items():
         print(f"\n{day.upper()}")
