@@ -67,7 +67,11 @@ def filter_food(food_database: list[dict], food_category: FoodCategory, age: int
     return filtrar_comida(food_database, food_category.value, age)
 
 
-def translate_sol(solution: list[int], food_db: list[dict]) -> tuple[dict, dict]:
+def translate_sol(
+    solution: list[int],
+    food_db: list[dict],
+    amounts: list[float] | None = None
+) -> tuple[dict, dict]:
     """
     Translate a numerical solution into a structured meal plan.
 
@@ -76,6 +80,7 @@ def translate_sol(solution: list[int], food_db: list[dict]) -> tuple[dict, dict]
 
     :param solution: List of food indices representing the solution.
     :param food_db: List of available food items.
+    :param amounts: Optional list of multipliers aligned with solution indices.
 
     :returns:
         A tuple containing:
@@ -175,14 +180,15 @@ def translate_sol(solution: list[int], food_db: list[dict]) -> tuple[dict, dict]
                 if indice < len(solution):
                     idx = int(solution[indice])
                     alimento = food_db[idx]
-                    nombre_completo = f"- {alimento['nombre']} ({alimento['grupo']})"
+                    amount = amounts[indice] if amounts is not None else 1.0
+                    nombre_completo = f"- {alimento['nombre']} ({alimento['grupo']}) x{amount:.2f}"
                     alimentos.append(nombre_completo)
 
-                    calorias_totales += alimento["calorias"]
-                    daily_data[dia]["calories"] += alimento["calorias"]
-                    daily_data[dia]["proteins"] += alimento["proteinas"]
-                    daily_data[dia]["carbohydrates"] += alimento["carbohidratos"]
-                    daily_data[dia]["fats"] += alimento["grasas"]
+                    calorias_totales += alimento["calorias"] * amount
+                    daily_data[dia]["calories"] += alimento["calorias"] * amount
+                    daily_data[dia]["proteins"] += alimento["proteinas"] * amount
+                    daily_data[dia]["carbohydrates"] += alimento["carbohidratos"] * amount
+                    daily_data[dia]["fats"] += alimento["grasas"] * amount
 
                     indice += 1
 
